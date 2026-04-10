@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Complex types - string and int/float to tuple"""
+"""Let's duck type an iterable object"""
 from typing import Iterable, Sequence, List, Tuple
 
 
 def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
-    """Returns a tuple of the string k and the square
-       of the int/float v as a float."""
+    """Takes an interable of sequences and returns a list of tuples."""
     return [(i, len(i)) for i in lst]
