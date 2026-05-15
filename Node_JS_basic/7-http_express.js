@@ -4,12 +4,12 @@ const countStudents = require('./3-read_file_async');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.set('text/plain');
+  res.type('text/plain');
   res.send('Hello Holberton School!');
 });
 
 app.get('/students', (req, res) => {
-  res.set('text/plain');
+  res.type('text/plain');
   res.write('This is the list of our students\n');
   countStudents(process.argv[2])
     .then(() => {
