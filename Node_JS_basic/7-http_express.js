@@ -4,19 +4,16 @@ const countStudents = require('./3-read_file_async');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.set('Content-Type', 'text/plain');
   res.send('Hello Holberton School!');
 });
 
 app.get('/students', (req, res) => {
-  res.set('Content-Type', 'text/plain');
-  res.write('This is the list of our students\n');
   countStudents(process.argv[2])
-    .then(() => {
-      res.end();
+    .then((data) => {
+      res.send(`This is the list of our students\n${data}`);
     })
     .catch((err) => {
-      res.status(500).send(`Cannot load the database: ${err.message}`);
+      res.send(`This is the list of our students\n${err.message}`);
     });
 });
 
