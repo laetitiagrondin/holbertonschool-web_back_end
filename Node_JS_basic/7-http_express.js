@@ -10,12 +10,13 @@ app.get('/', (req, res) => {
 
 app.get('/students', (req, res) => {
   res.set('Content-Type', 'text/plain');
+  res.write('This is the list of our students\n');
   countStudents(process.argv[2])
-    .then((data) => {
-      res.send(`This is the list of our students\n${data}`);
+    .then(() => {
+      res.end();
     })
     .catch((err) => {
-      res.send(`This is the list of our students\n${err.message}`);
+      res.status(500).send(`Cannot load the database: ${err.message}`);
     });
 });
 
