@@ -1,4 +1,4 @@
-console.log('Welcome to Holberton School, what is your name?\n');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -8,5 +8,5 @@ process.stdin.on('data', (data) => {
 });
 
 process.stdin.on('end', () => {
-  process.stdout.write('This important software is now closing\n');
+  console.log('This important software is now closing\n');
 });
