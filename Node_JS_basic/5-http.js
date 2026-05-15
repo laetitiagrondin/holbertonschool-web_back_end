@@ -2,6 +2,8 @@ const http = require('http');
 const countStudents = require('./3-read_file_async');
 
 const app = http.createServer((req, res) => {
+    const database = process.argv[2];
+
   if (req.url === '/') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
@@ -10,12 +12,18 @@ const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.write('This is the list of our students\n');
-    countStudents(process.argv[2])
+    const logs = [];
+    const originalLog = console.log;
+    console.log = (message) => {
+      logs.push(message);
+    };
+    countStudents(database)
       .then(() => {
-        res.end();
+        console.log = originalLog;
+        res.end(logs.join('\n'));
       })
       .catch(() => {
-        res.statusCode = 404;
+        console.log = originalLog;
         res.end('Cannot load the database');
       });
   } else {
