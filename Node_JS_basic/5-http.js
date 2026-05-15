@@ -8,29 +8,26 @@ const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
+    return;
+  }
+
+  if (req.url === '/students') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.write('This is the list of our students\n');
-    const logs = [];
-    const originalLog = console.log;
-    console.log = (message) => {
-      logs.push(message);
-    };
     countStudents(database)
       .then(() => {
-        console.log = originalLog;
-        res.end(logs.join('\n'));
+        res.end();
       })
       .catch(() => {
-        console.log = originalLog;
         res.end('Cannot load the database');
       });
-  } else {
-    res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Not found');
+    return;
   }
+
+  res.statusCode = 404;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Not found');
 });
 
 app.listen(1245);
