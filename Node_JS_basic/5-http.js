@@ -11,8 +11,11 @@ const app = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.write('This is the list of our students\n');
     countStudents(process.argv[2])
-      .then(() => {})
+      .then(() => {
+        res.end();
+      })
       .catch(() => {
+        res.statusCode = 404;
         res.end('Cannot load the database');
       });
   } else {
