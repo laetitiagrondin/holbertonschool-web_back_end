@@ -12,7 +12,7 @@ const app = http.createServer((req, res) => {
     countStudents(process.argv[2])
       .then((data) => {
         res.end(data);
-    })
+      })
       .catch((err) => {
         res.end(err.message);
       });
